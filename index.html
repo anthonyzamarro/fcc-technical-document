@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>FCC: Technical Documentation Page</title>
+</head>
+<body>
+<main id="main-doc">
+  <nav id="nav">
+    <header>
+      <h1 class="title">JS Concepts</h1>
+    </header>
+    <p>
+      This page describes some key concepts of the JavaScript programming langauge.
+    </p>
+    <div class="links">
+      <a class="nav-link" href="#closures">Closures</a>
+      <a class="nav-link" href="#events">Events</a>
+      <a class="nav-link" href="#dom">DOM</a>
+      <a class="nav-link" href="#module-pattern">Module Pattern</a>
+      <a class="nav-link" href="#this"><em>This</em></a>
+    </div>
+  </nav>
+  <section class="main-section-container">
+    <section class="main-section">
+      <header id="closures"><h3>Closures</h3></header>
+      <span>What is it?</span>
+      <p>A closure is when a nested function, a function inside of a function, as access to its outer functions variables and paramaters, as well as the variables of the global scope. To understand closures, you first must know about <a href="https://developer.mozilla.org/en-US/docs/Glossary/Scope">scope.</a></p>
+      <span>Why use it?</span>
+      <p>
+        <ul>
+          <li>You can associate some data with a function that operates on that data.</li>
+          <li>They allow you to emulate private methods which is useful for restricting access to code as well as managing thr global namespace.</li>
+        </ul>
+      </p>
+      <span>How to use it?</span>
+      <pre>
+        <code>
+        function makeAdder(x) {
+          return function(y) {
+            return x + y;
+          };
+        }
+
+        var add5 = makeAdder(5);
+        var add10 = makeAdder(10);
+
+        console.log(add5(2));  // 7
+        console.log(add10(2)); // 12
+        </code>
+      </pre>
+      <p>
+        In the above example, function <code>makeAdder()</code> takes an argument <code>x</code> and returns a function, which takes an argument <code>y</code> and adds both of the arguments together.
+      </p>
+      <p>
+        <code>add5</code> and <code>add10</code> are both closures. They share the same function body, but share different lexical environments.
+      </p>
+      <p>Read more about <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures" target="_blank">closures.</a></p>
+    </section>
+    <section class="main-section">
+      <header id="events"><h3>Events</h3></header>
+      <span>What is it?</span>
+      <p>Events are occurences that happen in the browser or system which tell it that an action has or is about to commence.</p>
+      <span>Why use it?</span>
+      <p>
+        <ul>
+          <li>Make websites and web apps more interactive</li>
+          <li>Provide a meaningful response for users.</li>
+        </ul>
+      </p>
+      <span>How to use it?</span>
+      <pre>
+        <code>
+          const button = document.querySelector("#submit-button");
+          button.addEventListener('click', () => {
+            alert('Your form has been submitted!');
+          });
+        </code>
+      </pre>
+      <p>
+        Here we are simply alerting the user that their form has been successfully submitted after they have clicked the <code>submit</code> button. The event was fired once the user clicked the button and a meaningful response was triggered.
+      </p>
+    </section>
+    <section class="main-section">
+      <header id="dom"><h3>DOM</h3></header>
+     <span>What is it?</span>
+     <p>The DOM is a representation of HTML and XML documents and allows programmers to interact with its structure, style, and content.</p>
+     <span>Why use it?</span>
+      <p>
+        <ul>
+          <li>To alter aspects HTML or XML.</li>
+          <li>Without it, JavaScript wouldn't have any model of HTML and its entities.</li>
+        </ul>
+      </p>
+      <span>How to use it?</span>
+      <pre>
+        <code>
+        < h1 > Hello World < / h1 >
+        < script >
+          const h1Tag = document.querySelector('h1');
+          h1Tag.innerHTML = 'Hey there!';
+        < / script >
+        </code>
+      </pre>
+      <p>In the code above, we are grabbing the <code>h1</code> tag and changing its text to display something different. We are interacting and altering some part of the DOM by using JavaScript.</p>
+    </section>
+    <section class="main-section">
+      <header id="module-pattern"><h3>The Module Pattern</h3></header>
+      <span>What is it?</span>
+      <p>The Module Pattern was first designed as a way to provide both private and public functions inside of classes. Since JavaScript doesn't have classes, the module pattern mimicks this notion.</p>
+      <span>Why use it?</span>
+      <p>
+        <ul>
+          <li>Provide a standard code design to follow.</li>
+          <li>Protect against collisions in the global namespace.</li>
+        </ul>
+      </p>
+      <span>How to use it?</span>
+      <pre>
+        <code>
+          var testModule = (function () {
+
+          var counter = 0;
+
+          return {
+
+            incrementCounter: function () {
+              return counter++;
+            },
+
+            resetCounter: function () {
+              console.log( "counter value prior to reset: " + counter );
+              counter = 0;
+            }
+          };
+
+        })();
+
+        // Usage:
+
+        // Increment our counter
+        testModule.incrementCounter();
+
+        // Check the counter value and reset
+        // Outputs: counter value prior to reset: 1
+        testModule.resetCounter();
+        </code>
+      </pre>
+      <p>In this example, we defined a variable <code>testModule</code> and set it to an <a href="https://developer.mozilla.org/en-US/docs/Glossary/IIFE" target="_blank"></a>IIFE. Inside this IIFE we initialize a variable <code>counter</code> and return a function that increments count by one. We also set a <code>resetCounter</code> function which if invoked would set the variable count to zero. Calling <code>testModule.incrementCounter()</code> increases the <code>counter</code> variables by one, then we are resetting it to zero by invoking <code>testModule.resetCounter().</code></p>
+    </section>
+    <section class="main-section">
+      <header id="this"><h3><em>This</em></h3></header>
+      <span>What is it?</span>
+      <p>The <em>this</em> keyword refers to the current function being invoked. Its default is the Window object.</p>
+      <span>Why use it?</span>
+      <p>
+        <ul>
+          <li>To refer to the current function being invoked.</li>
+          <li>To refer to the Window object</li>
+        </ul>
+      </p>
+      <span>How to use it?</span>
+      <pre>
+        <code>
+          var thisFunction = {
+              props: 10,
+              func: function() {
+                return this.props;
+            }
+          }
+          thisFunction.func();
+        </code>
+      </pre>
+      <p>Invoking <code>thisFunction.func()</code> will result in an ouput of 10. That is because the inner function <code>func</code> is using the <code>this</code> keyword to refer to the outer functions property and thus returns the value of <code>props.</code> which is ten.</p>
+    </section>
+  </section>
+  <footer>
+    <p>
+      Information about Closures, Events, DOM, and <em>This</em> was taken from <a href="https://developer.mozilla.org/en-US/" target="_blank">MDN</a>
+    </p>
+    <p>
+      Information about the Module Pattern was taken from <a href="https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript" target="_blank">Addy Osmani</a>.
+    </p>
+  </footer>
+</main>
+
+
+</body>
+</html>
